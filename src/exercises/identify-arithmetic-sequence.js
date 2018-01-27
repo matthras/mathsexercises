@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-export class IdentifyArithmeticSequence extends Component {
+export default class IdentifyArithmeticSequence extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      commonDifference: 3;
-      initialTerm: 2;
-      nTerms: 5;
+      commonDifference: 3,
+      initialTerm: 2,
+      nTerms: 5
     } 
   }
 
@@ -22,14 +22,14 @@ export class IdentifyArithmeticSequence extends Component {
   }
 
   render() {
-    let sequenceArray = [{this.state.initialTerm}];
+    let sequenceArray = [this.state.initialTerm];
     for(let t = 0; t < this.state.nTerms-1; t++) {
-      sequenceArray.push(sequenceArray[sequenceArray.length-1]+{this.state.commonDifference});
+      sequenceArray.push(sequenceArray[sequenceArray.length-1]+this.state.commonDifference);
     }
     return (
     <section>
       <div id="question">
-        Determine the general equation of the following arithmetic sequence: {sequenceArray.join('')}
+        Determine the general equation of the following arithmetic sequence: {sequenceArray.join(', ')}
       </div>
       <div id="submitAnswer">
         a = <input type="number"></input>
