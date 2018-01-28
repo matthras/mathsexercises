@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
 
+function UserFeedback(props) {
+  if(props.check){
+    return <span>Correct!</span>
+  } else {
+    return <span>Incorrect</span>
+  }
+}
+
 export default class IdentifyArithmeticSequence extends Component {
   constructor(props) {
     super(props)
     this.state = {
       commonDifference: 3,
       initialTerm: 2,
-      nTerms: 5
+      nTerms: 5,
+      userSolution: false,
+      showFeedback: false
     } 
   }
 
   checkAnswer = () => {
-
+    this.setState({
+      showFeedback: true,
+      userSolution: (document.getElementById("a").value === this.state.initialTerm.toString()) && (document.getElementById("d").value === this.state.commonDifference.toString())
+    });
   }
 
   newQuestion = () => {
@@ -32,14 +45,15 @@ export default class IdentifyArithmeticSequence extends Component {
         Determine the general equation of the following arithmetic sequence: {sequenceArray.join(', ')}
       </div>
       <div id="submitAnswer">
-        a = <input type="number"></input>
-        d = <input type="number"></input>
+        a = <input id="a" type="number"></input>
+        d = <input id="d" type="number"></input>
       </div>
       <div id="feedback">
+        <button onClick={this.checkAnswer}>Check your answer!</button>
+        { this.state.showFeedback ? <UserFeedback check={this.state.userSolution} /> : '' }
       </div>
       <div id="solution">
       </div>
-      <button onClick={this.checkAnswer}>Check your answer!</button>
       <button onClick={this.newQuestion}>Give me a new question!</button>
     </section>
     )
